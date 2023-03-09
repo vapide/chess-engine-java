@@ -1,10 +1,10 @@
 public abstract class Piece {
 
-  private String color;
+  private boolean color;
   private int row;
   private int col;
 
-  public Piece(String color, int row, int col) {
+  public Piece(boolean color, int row, int col) {
     this.color = color;
     this.row = row;
     this.col = col;
