@@ -1,18 +1,35 @@
 public class Rook extends Piece {
- //private Bitboard moves;
+  private boolean pieceColor;
+ private int pieceRow;
+  private int pieceCol;
   public Rook(boolean color, int row, int col) {
    super(color, row, col);
+   pieceColor = color;
+   pieceRow = row;
+   pieceCol = col;
     //bitboard = new Bitboard( 1L << (row * 8 + col));
   }
   
+  public boolean getColor() {
+    return pieceColor;
+  }
+
+  public int getRow() {
+    return pieceRow;
+  }
+
+  public int getCol() {
+    return pieceCol;
+  }
+
+  @Override
+  public boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
+      return false;
+   }
+
   public Bitboard getMoves() { // psuedo legal moves
-   return new Bitboard((Bitboard.FILE_A >>> col) ^ (Bitboard.RANK_8 >>> row)); 
+   return new Bitboard((Bitboard.FILE_A >>> pieceCol) ^ (Bitboard.RANK_8 >>> pieceRow)); 
   }
- 
- public boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
-return false;
-  }
- }
 }
 /*
 

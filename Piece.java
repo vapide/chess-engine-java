@@ -10,7 +10,7 @@ public abstract class Piece {
     this.col = col;
   }
 
-  public String getColor() {
+  public boolean getColor() {
     return color;
   }
 
@@ -22,5 +22,5 @@ public abstract class Piece {
     return col;
   }
 
-  public abstract boolean isValidMove(int row, int col);
+  public abstract boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol);
 }
