@@ -1,7 +1,8 @@
 public class Player {
   private String name;
   private boolean color;
-  
+  private boolean kingMoved;
+
   public Player(String name, boolean color) {
     this.name = name;
     this.color = color;
@@ -14,4 +15,9 @@ public class Player {
   public boolean getColor() {
     return color;
   }
+
+  public boolean canCastle() {
+    return kingMoved;
+  }
+
 }

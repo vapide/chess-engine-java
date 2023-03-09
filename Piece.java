@@ -1,25 +1,33 @@
 public abstract class Piece {
 
-  private boolean color;
-  private int row;
-  private int col;
+  private boolean pieceColor;
+  private int pieceRow;
+  private int pieceCol;
 
   public Piece(boolean color, int row, int col) {
-    this.color = color;
-    this.row = row;
-    this.col = col;
+    this.pieceColor = color;
+    this.pieceRow = row;
+    this.pieceCol = col;
   }
 
   public boolean getColor() {
-    return color;
+    return pieceColor;
   }
 
   public int getRow() {
-    return row;
+    return pieceRow;
   }
 
   public int getCol() {
-    return col;
+    return pieceCol;
+  }
+
+  public void changeRow(int row) {
+    pieceRow = row;
+  }
+
+  public void changeCol(int col) {
+    pieceCol = col;
   }
 
   public abstract boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol);

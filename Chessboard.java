@@ -2,9 +2,12 @@ import java.util.*;
 
   public class Chessboard {
 
+    public String[] moves;
+
     private Piece[][] boardMatrix;
 
     private Hashtable<Character, Integer> fileCodes;
+    private Hashtable<Integer, Character> letterCodes;
 
     private Bitboard whitePawns;
     private Bitboard whiteKnights;
@@ -28,6 +31,8 @@ import java.util.*;
 
 
     public Chessboard() {
+      moves = new String[0];
+
       whitePawns = new Bitboard(65280L); // 0b0000000000000000000000000000000000000000000000001111111100000000L
       whiteKnights = new Bitboard(66L); // 0b0000000000000000000000000000000000000000000000000000000001000010L
       whiteBishops = new Bitboard(36L); // 0b0000000000000000000000000000000000000000000000000000000000100100L
@@ -48,11 +53,14 @@ import java.util.*;
       allPieces = new Bitboard(whitePieces.getBitboard() | blackPieces.getBitboard());
       
       fileCodes = new Hashtable<Character, Integer>();
+      letterCodes = new Hashtable<Integer, Character>();
+
       String files = "abcdefgh";
       char[] filelist = files.toCharArray();
       int j = 0; 
       for(char character : filelist) {
         fileCodes.put(character, j);
+        letterCodes.put(j, character);
         j++;
       }
 
@@ -107,6 +115,28 @@ import java.util.*;
     
     public Bitboard getAllPieces() {
     return allPieces;
+    }
+
+    public String[] getMoves() {
+      return moves;
+    }
+
+    public Hashtable<Integer, Character> getLetterCodes() {
+      return letterCodes;
+    }
+
+    public Hashtable<Character, Integer> getFileCodes() {
+      return fileCodes;
+    }
+
+    public void movePiece(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
+      boardMatrix[endrow][endcol] = boardMatrix[startrow][startcol];
+      boardMatrix[endrow][endcol].changeRow(endrow);
+      boardMatrix[endrow][endcol].changeCol(endcol);
+      boardMatrix[startrow][startcol] = null;
+      String[] temp = new String[moves.length + 1];
+      temp = Arrays.copyOf(moves, moves.length);
+      temp[temp.length-1] = letterCodes.get(startrow) + Integer.toString(startcol) + letterCodes.get(endrow) + Integer.toString(endcol);
     }
 
     public static long[][] convertToBitboards(Piece[][] matrix) {
