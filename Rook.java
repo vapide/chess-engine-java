@@ -5,11 +5,25 @@ public class Rook extends Piece {
     //bitboard = new Bitboard( 1L << (row * 8 + col));
   }
   
-  public Bitboard getMoves() {
+  public Bitboard getMoves() { // psuedo legal moves
    return new Bitboard((Bitboard.FILE_A >>> col) ^ (Bitboard.RANK_8 >>> row)); 
   }
+ 
+ public boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
+return false;
+  }
+ }
 }
 /*
+
+  if(color) {
+   long whitePieces = board.getWhitePieces().getBitBoard() ^ (row * 8 + col);
+   long blackPieces = board.getBlackPieces().getBitBoard();
+   
+  } else {
+   long whitePieces = board.getWhitePieces().getBitBoard();
+   long blackPieces = board.getBlackPieces().getBitBoard() ^ (row * 8 + col);
+
 public class Rook extends Piece {
 
   private Bitboard bitboard;
