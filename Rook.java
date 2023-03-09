@@ -6,7 +6,7 @@ public class Rook extends Piece {
   }
   
   public Bitboard getMoves() {
-   return new Bitboard((Bitboard.FILE_A >>> row) ^ (Bitboard.RANK_8 >>> col)); 
+   return new Bitboard((Bitboard.FILE_A >>> col) ^ (Bitboard.RANK_8 >>> row)); 
   }
 }
 /*
