@@ -47,6 +47,8 @@ rotateBitmap(long bb)
 public class Bitboard {
 
   // Predefined bitboards for files and ranks
+  public static final long DIAG_AH = -9205322385119247871L; // 0b1000000001000000001000000001000000001000000001000000001000000001 
+  public static final long DIAG_HA = 72624976668147840L; // 0b0000000100000010000001000000100000010000001000000100000010000000
   public static final long FILE_A = -9187201950435737472L; // 0x8080808080808080L
   public static final long FILE_H = 72340172838076673L; // 0x101010101010101L
   public static final long RANK_1 = 255L; // 0x00000000000000FFL
