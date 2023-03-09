@@ -39,6 +39,18 @@ public class Chessboard {
     allPieces = new Bitboard(whitePieces.getBitboard() | blackPieces.getBitboard());
     
   }
+  
+  public Bitboard getWhitePieces() {
+    return whitePieces;
+  }
+  
+  public Bitboard getBlackPieces() {
+   return blackPieces; 
+  }
+  
+  public Bitboard getAllPieces() {
+   return allPieces;
+  }
 
   public void displayBoard() {
     for (int i = 7; i >= 0; i--) {
