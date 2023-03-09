@@ -1,8 +1,8 @@
 public class Rook extends Piece {
- private Bitboard moves;
+ //private Bitboard moves;
   public Rook(boolean color, int row, int col) {
    super(color, row, col);
-    bitboard = new Bitboard( 1L << (row * 8 + col));
+    //bitboard = new Bitboard( 1L << (row * 8 + col));
   }
   
   public Bitboard getMoves() {
