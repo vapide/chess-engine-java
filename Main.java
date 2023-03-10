@@ -11,6 +11,7 @@ public class Main {
         newGame.displayBoard();
         newGame.uciToMove("e2e4");
         newGame.displayBoard();
+        newGame.getMoves();
         //System.out.println(board.getPieces());
     }
 
