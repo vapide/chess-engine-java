@@ -23,10 +23,13 @@ public class Game {
         }
         return moveVals;
     }
-    public void movePiece
+    public void movePiece(int startRow, int startCol, int endRow, int endCol) {
+        
+    }
     public void uciToMove(String uciString) {
      int[] moveVals = uciToInt(uciString);
-     
+     Piece myPieece = board.getPieceFromSquare(moveVals[0],moveVals[1]);
+     if(myPiece.isValidMove(boardClass, myPiece.getColor(), moveVals[0],moveVals[1],moveVals[2],moveVals[3]))
     }
 
     // make method for ucitomove and use ucitoint or something
