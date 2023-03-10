@@ -30,6 +30,14 @@ private int pieceRow;
     this.pieceCol = col;
   }
 
+  public char getSymbol() {
+      if(this.pieceColor) {
+          return 'P';
+      } else {
+          return 'p';
+      }
+  }
+
  @Override
  public boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
      return true;
