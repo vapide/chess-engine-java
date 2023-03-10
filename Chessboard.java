@@ -1,8 +1,10 @@
 import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
   public class Chessboard {
 
-    public String[] moves;
+    public List<String> moves;
 
     private Piece[][] boardMatrix;
 
@@ -31,7 +33,7 @@ import java.util.*;
 
 
     public Chessboard() {
-      moves = new String[0];
+      moves = new ArrayList<>();
 
       whitePawns = new Bitboard(65280L); // 0b0000000000000000000000000000000000000000000000001111111100000000L
       whiteKnights = new Bitboard(66L); // 0b0000000000000000000000000000000000000000000000000000000001000010L
@@ -70,7 +72,6 @@ import java.util.*;
         boardMatrix[1][i] = new Pawn(false, 1, i);
         boardMatrix[6][i] = new Pawn(true, 6, i);
       }
-
       boardMatrix[0][0] = new Rook(false,0,0);
       boardMatrix[0][1] = new Knight(false,0,1);
       boardMatrix[0][2] = new Bishop(false,0,2);
@@ -104,10 +105,14 @@ import java.util.*;
       bitboardMatrix[1][5] = blackKing;
       
     }
-    
+
+    public Piece[][] getBoardMatrix() {
+        return boardMatrix;
+    }
     public Piece getPieceFromSquare(int row, int col) {
         // System.out.println(row);
         // System.out.println(col);
+        // System.out.println(boardMatrix[row][col].getColor());
      return boardMatrix[row][col]; 
     }
     
@@ -123,7 +128,7 @@ import java.util.*;
     return allPieces;
     }
 
-    public String[] getMoves() {
+    public List<String> getMoves() {
       return moves;
     }
 
@@ -135,16 +140,16 @@ import java.util.*;
       return fileCodes;
     }
     
+    public void addMove(String uciString) {
+        moves.add(uciString);
+    }
 
     public void movePiece(boolean color, int startrow, int startcol, int endrow, int endcol) {
       // System.out.println(boardMatrix[endrow][endcol]);
       boardMatrix[endrow][endcol] = boardMatrix[startrow][startcol];
       boardMatrix[endrow][endcol].changeRow(endrow);
       boardMatrix[endrow][endcol].changeCol(endcol);
-      // boardMatrix[startrow][startcol] = null;
-      String[] temp = new String[moves.length + 1];
-      temp = Arrays.copyOf(moves, moves.length);
-      temp[temp.length-1] = letterCodes.get(startrow) + Integer.toString(startcol) + letterCodes.get(endrow) + Integer.toString(endcol);
+      boardMatrix[startrow][startcol] = null;
     }
 
     public static long[][] convertToBitboards(Piece[][] matrix) {
@@ -174,6 +179,19 @@ import java.util.*;
         }
       }
       return bitboards;
+    }
+    
+    public void printBoard() {
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if(boardMatrix[x][y] != null) {
+                    System.out.print(boardMatrix[x][y].getSymbol() + " ");
+                } else {
+                    System.out.print(". ");
+                }
+            }
+            System.out.println();
+    }
     }
     
     public void displayBoard() {
