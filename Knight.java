@@ -11,19 +11,35 @@ public class Knight extends Piece {
      }
      
      public boolean getColor() {
-       return pieceColor;
+       return this.pieceColor;
      }
     
      public int getRow() {
-       return pieceRow;
+       return this.pieceRow;
      }
     
      public int getCol() {
-       return pieceCol;
+       return this.pieceCol;
      }
     
+  public void changeRow(int row) {
+    pieceRow = row;
+  }
+
+  public void changeCol(int col) {
+    pieceCol = col;
+  }
+
+  public char getSymbol() {
+      if(this.pieceColor) {
+          return 'N';
+      } else {
+          return 'n';
+      }
+  }
+
      @Override
      public boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
-         return false;
+         return true;
       }
     }
