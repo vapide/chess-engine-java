@@ -102,10 +102,12 @@ import java.util.*;
       bitboardMatrix[1][3] = blackBishops;
       bitboardMatrix[1][4] = blackQueens;
       bitboardMatrix[1][5] = blackKing;
-
+      
     }
     
     public Piece getPieceFromSquare(int row, int col) {
+        // System.out.println(row);
+        // System.out.println(col);
      return boardMatrix[row][col]; 
     }
     
@@ -134,11 +136,12 @@ import java.util.*;
     }
     
 
-    public void movePiece(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
+    public void movePiece(boolean color, int startrow, int startcol, int endrow, int endcol) {
+      // System.out.println(boardMatrix[endrow][endcol]);
       boardMatrix[endrow][endcol] = boardMatrix[startrow][startcol];
       boardMatrix[endrow][endcol].changeRow(endrow);
       boardMatrix[endrow][endcol].changeCol(endcol);
-      boardMatrix[startrow][startcol] = null;
+      // boardMatrix[startrow][startcol] = null;
       String[] temp = new String[moves.length + 1];
       temp = Arrays.copyOf(moves, moves.length);
       temp[temp.length-1] = letterCodes.get(startrow) + Integer.toString(startcol) + letterCodes.get(endrow) + Integer.toString(endcol);
