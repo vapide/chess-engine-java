@@ -8,25 +8,35 @@ public class Game {
         player2 = p2;
     }
 
+    public void getMoves() {
+        for(String move : boardClass.getMoves()) {
+        System.out.print(move + " ");
+        }
+        System.out.println();
+    }
+
     public void displayBoard() {
-        boardClass.displayBoard();
+        boardClass.printBoard();
+        System.out.println();
+        //boardClass.displayBoard();
     }
 
     public int[] uciToInt(String uciString) {
-        // System.out.println(uciString.charAt(1));
+        //System.out.println(uciString.charAt(1));
         int[] moveVals = new int[4]; // startRow, startCol, endRow, endCol.
         // Character srow = Character.getNumericValue(Character.valueOf(uciString.charAt(1)));
         // Character erow = Character.getNumericValue(Character.valueOf(uciString.charAt(3)));
+        // System.out.println(uciString.charAt(1) + '0');
         if(uciString.length() == 5) { // change for promotion (im too lazy lol!)
             moveVals[0] = boardClass.getFileCodes().get(uciString.charAt(0));
-            moveVals[1] = 7 - (int)uciString.charAt(1) + 48;
+            moveVals[1] = (int)uciString.charAt(1) + 48;
             moveVals[2] = boardClass.getFileCodes().get(uciString.charAt(2));
-            moveVals[3] = 7 - (int)uciString.charAt(3) + 48;
+            moveVals[3] = (int)uciString.charAt(3) + 48;
         } else if(uciString.length() == 4) {
             moveVals[0] = boardClass.getFileCodes().get(uciString.charAt(0));
-            moveVals[1] = 7 - (int)uciString.charAt(1) + 48;
+            moveVals[1] = 7 - ((int)(uciString.charAt(1) - '0')-1);
             moveVals[2] = boardClass.getFileCodes().get(uciString.charAt(2));
-            moveVals[3] = 7 - (int)uciString.charAt(3) + 48;
+            moveVals[3] = 7 - ((int)(uciString.charAt(3) - '0')-1);
         }
         // System.out.println(moveVals[1]);
         return moveVals;
@@ -37,11 +47,20 @@ public class Game {
      // System.out.println(moveVals[1]);
      // System.out.println(moveVals[0]);
      Piece myPiece = boardClass.getPieceFromSquare(moveVals[1],moveVals[0]);
+     /*
+        if(myPiece.isValidMove) {
+            ...
+            to update bitboards i would do something like have a function that determines distance or directions or steps in order to move the piece i have utility methods in the bitboard class so add that **
+        } else {
+            throw error
+        }
+     */
      // below 2 statements dont work getter methods return null what the freak.
-     //System.out.println(myPiece.getColor());
-     //System.out.println(myPiece.getRow());
+     // System.out.println(myPiece.getColor());
+     // System.out.println(myPiece.getRow());
      // System.out.println(MyPiece);
      // if(myPiece.isValidMove(boardClass, myPiece.getColor(), moveVals[1],moveVals[0],moveVals[3],moveVals[2])) {
+      boardClass.addMove(uciString);
       boardClass.movePiece(myPiece.getColor(), moveVals[1], moveVals[0], moveVals[3], moveVals[2]);   
      // }
     }
