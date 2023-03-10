@@ -11,20 +11,36 @@ public class Bishop extends Piece {
    }
    
    public boolean getColor() {
-     return pieceColor;
+     return this.pieceColor;
    }
   
    public int getRow() {
-     return pieceRow;
+     return this.pieceRow;
    }
   
    public int getCol() {
-     return pieceCol;
+     return this.pieceCol;
    }
   
+  public void changeRow(int row) {
+    pieceRow = row;
+  }
+
+  public void changeCol(int col) {
+    pieceCol = col;
+  }
+
+  public char getSymbol() {
+      if(this.pieceColor) {
+          return 'B';
+      } else {
+          return 'b';
+      }
+  }
+
    @Override
    public boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
-       return false;
+       return true;
     }
   public Bitboard getMoves() {
     return new Bitboard(Bitboard.DIAG_AH >>> (pieceCol +  pieceRow) ^ (Bitboard.DIAG_HA << (7 - pieceCol + pieceRow)));
