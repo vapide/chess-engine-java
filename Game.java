@@ -23,6 +23,11 @@ public class Game {
         }
         return moveVals;
     }
+    public void movePiece
+    public void uciToMove(String uciString) {
+     int[] moveVals = uciToInt(uciString);
+     
+    }
 
     // make method for ucitomove and use ucitoint or something
     // also make sure to check if it is a legal move you have board class get piece at position (might need to make it but its all there) and then just ask the piece if its a legal move
