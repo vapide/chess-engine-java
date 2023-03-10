@@ -105,6 +105,10 @@ import java.util.*;
 
     }
     
+    public Piece getPieceFromSquare(int row, int col) {
+     return boardMatrix[row][col]; 
+    }
+    
     public Bitboard getWhitePieces() {
       return whitePieces;
     }
