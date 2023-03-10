@@ -11,19 +11,27 @@ public class King extends Piece {
      }
      
      public boolean getColor() {
-       return pieceColor;
+       return this.pieceColor;
      }
     
      public int getRow() {
-       return pieceRow;
+       return this.pieceRow;
      }
     
      public int getCol() {
-       return pieceCol;
+       return this.pieceCol;
      }
     
+  public char getSymbol() {
+      if(this.pieceColor) {
+          return 'K';
+      } else {
+          return 'k';
+      }
+  }
+
      @Override
      public boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
-         return false;
+         return true;
       }
     }
