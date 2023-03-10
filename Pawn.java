@@ -4,9 +4,9 @@ private int pieceRow;
  private int pieceCol;
  public Pawn(boolean color, int row, int col) {
   super(color, row, col);
-  pieceColor = color;
-  pieceRow = row;
-  pieceCol = col;
+  this.pieceColor = color;
+  this.pieceRow = row;
+  this.pieceCol = col;
    //bitboard = new Bitboard( 1L << (row * 8 + col));
  }
  
@@ -22,8 +22,16 @@ private int pieceRow;
    return pieceCol;
  }
 
+  public void changeRow(int row) {
+    this.pieceRow = row;
+  }
+
+  public void changeCol(int col) {
+    this.pieceCol = col;
+  }
+
  @Override
  public boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
-     return false;
+     return true;
   }
 }
