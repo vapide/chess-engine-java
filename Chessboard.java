@@ -168,13 +168,6 @@ import java.util.*;
       return bitboards;
     }
     
-  public Hashtable<Character, Integer> getFileCodes() {
-    return fileCodes;
-  }
-    public Hashtable<Integer, Character> getLetterCodes() {
-     return letterCodes; 
-    }
-
     public void displayBoard() {
       for (int i = 7; i >= 0; i--) {
         for (int j = 7; j >= 0; j--) {
