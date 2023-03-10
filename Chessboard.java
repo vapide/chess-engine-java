@@ -132,6 +132,7 @@ import java.util.*;
     public Hashtable<Character, Integer> getFileCodes() {
       return fileCodes;
     }
+    
 
     public void movePiece(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
       boardMatrix[endrow][endcol] = boardMatrix[startrow][startcol];
