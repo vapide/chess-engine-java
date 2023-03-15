@@ -36,7 +36,9 @@ import java.util.List;
 
     public Chessboard() {
       moves = new ArrayList<>();
-
+      bbdict = new Hashtable<String, Bitboard>();
+      
+      bbdict.put("whitePawns", new Bitboard(65280L));
       whitePawns = new Bitboard(65280L); // 0b0000000000000000000000000000000000000000000000001111111100000000L
       whiteKnights = new Bitboard(66L); // 0b0000000000000000000000000000000000000000000000000000000001000010L
       whiteBishops = new Bitboard(36L); // 0b0000000000000000000000000000000000000000000000000000000000100100L
