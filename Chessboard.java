@@ -10,7 +10,9 @@ import java.util.List;
 
     private Hashtable<Character, Integer> fileCodes;
     private Hashtable<Integer, Character> letterCodes;
-
+    
+    private Hashtable<String, Bitboard> bbdict;
+    
     private Bitboard whitePawns;
     private Bitboard whiteKnights;
     private Bitboard whiteBishops;
