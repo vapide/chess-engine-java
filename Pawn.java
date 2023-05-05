@@ -2,11 +2,13 @@ public class Pawn extends Piece {
 private boolean pieceColor;
 private int pieceRow;
  private int pieceCol;
+ private boolean hasMoved;
  public Pawn(boolean color, int row, int col) {
   super(color, row, col);
-  this.pieceColor = color;
-  this.pieceRow = row;
-  this.pieceCol = col;
+  pieceColor = color;
+  pieceRow = row;
+  pieceCol = col;
+  hasMoved = false;
    //bitboard = new Bitboard( 1L << (row * 8 + col));
  }
  
@@ -21,6 +23,14 @@ private int pieceRow;
  public int getCol() {
    return pieceCol;
  }
+
+public boolean checkHasMoved() {
+  return hasMoved;
+}
+
+public void setHasMovedTrue() {
+  hasMoved = true;
+}
 
   public void changeRow(int row) {
     this.pieceRow = row;

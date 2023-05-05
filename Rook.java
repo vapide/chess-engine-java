@@ -1,12 +1,15 @@
 public class Rook extends Piece {
   private boolean pieceColor;
- private int pieceRow;
+  private int pieceRow;
   private int pieceCol;
+  private boolean hasMoved;
+
   public Rook(boolean color, int row, int col) {
    super(color, row, col);
    pieceColor = color;
    pieceRow = row;
    pieceCol = col;
+   hasMoved = false;
     //bitboard = new Bitboard( 1L << (row * 8 + col));
   }
   
@@ -28,6 +31,14 @@ public class Rook extends Piece {
 
   public void changeCol(int col) {
     pieceCol = col;
+  }
+
+  public boolean checkHasMoved() {
+    return hasMoved;
+  }
+
+  public void setHasMovedTrue() {
+    hasMoved = true;
   }
 
   public char getSymbol() {
