@@ -117,6 +117,16 @@ public class Bitboard {
     return (bb >>> 9) & ~FILE_H;
   }
 
+public static void printBitboard(Bitboard bitboard) {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            long bit = bitboard.getBitboard() & (1L << (i * 8 + j));
+            System.out.print((bit != 0) ? "1 " : "0 ");
+        }
+        System.out.println();
+    }
+}
+
   /**
    * Rotate the given bitboard 45 degrees clockwise using a rotation matrix.
    * This method rotates the bitboard as if it was a chessboard, where A1 is the
