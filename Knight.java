@@ -37,6 +37,22 @@ public class Knight extends Piece {
           return 'n';
       }
   }
+
+  public int getSize(int n) {
+    return 2 ^ ((n ^ 2) && -(n < 2)); // prevents the mask from wrapping probably couldve just done 2 columns filled and just shift it but who cares it is what it is
+  }
+
+  public int getDiff(int n) {
+    return (n - 2) & -(n >= 3); // gets the needed shift to fill 5x5 square around knight which is the mask to prevent wrapping of moves which happens if a knight is on the edge of the board
+  }
+
+  public int repeat(int number) {
+    return (number & 0xFFL) * 0x0101010101010101L; // repeats the 8 digit binary number 8 times to get a full bitboard used for getting the columns to cooperate
+  }
+
+  public int fillCol(int n) {
+    return (255 >> (8 - n)) & 255; // fills 0b00000000 with 1s starting from left to right
+  }
 /*
   public Bitboard getPsudeoLegalMoves(Chessboard board, boolean color) { // do inverse of same color pieces bitboard then and it with the legal moves
     return color ? (!board.getWhitePieces() && 0b10100001000100000000000100010000101L >> (Long.numberOfTrailingZeros(row * 8 + col) - 17)) : (!board.getBlackPieces() && 0b10100001000100000000000100010000101L >> (Long.numberOfTrailingZeros(row * 8 + col) - 17));
@@ -62,10 +78,11 @@ public Bitboard getLegalMoves(Board board, int row, int col, boolean color) {
 */
 
 public Bitboard getLegalMoves(Board board, int row, int col, boolean color) {
+    long mask = ((repeat(fillCol(getSize(col))) >> getDiff(col)) || ~(repeat(fillCol(getSize(col))) << getDiff(7-col))) & ();
     // Calculate the bit position of the starting square
     int bitPos = (7 - row) * 8 + col;
     // Calculate the mask to shift the bitboard by
-    long mask = 0b0000000000000000000000000000000000000000000000000000000111110010L << bitPos;
+    // long mask = 0b0000000000000000000000000000000000000000000000000000000111110010L << bitPos;
     // Shift the bitboard by the mask to get the possible knight moves
     long moves = 0b10100001000100000000000100010000101L >> bitPos & (~(color ? board.getWhitePieces() : board.getBlackPieces()));
     // Return the possible knight moves as a new Bitboard object
