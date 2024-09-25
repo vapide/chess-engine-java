@@ -78,15 +78,17 @@ public Bitboard getLegalMoves(Board board, int row, int col, boolean color) {
 */
 
 public Bitboard getLegalMoves(Board board, int row, int col, boolean color) {
-    long mask = ((repeat(fillCol(getSize(col))) >> getDiff(col)) || ~(repeat(fillCol(getSize(col))) << getDiff(7-col))) & ();
     // Calculate the bit position of the starting square
     int bitPos = (7 - row) * 8 + col;
-    // Calculate the mask to shift the bitboard by
-    // long mask = 0b0000000000000000000000000000000000000000000000000000000111110010L << bitPos;
-    // Shift the bitboard by the mask to get the possible knight moves
-    long moves = 0b10100001000100000000000100010000101L >> bitPos & (~(color ? board.getWhitePieces() : board.getBlackPieces()));
-    // Return the possible knight moves as a new Bitboard object
-    return new Bitboard(moves);
+
+    // Create a mask to represent the possible knight moves around the starting square
+    long mask = 0b10100001000100000000000100010000101L << bitPos;
+
+    // Apply the mask to the current board state to filter out illegal moves
+    long potentialMoves = mask & ~(color ? board.getWhitePieces() : board.getBlackPieces());
+
+    // Create a new Bitboard object with the filtered potential moves
+    return new Bitboard(potentialMoves);
 }
 // cry
 @Override
