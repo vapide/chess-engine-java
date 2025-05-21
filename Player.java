@@ -1,6 +1,6 @@
 public class Player {
-  private String name;
-  private boolean color;
+  private final String name;
+  private final boolean color;
   private boolean kingMoved;
 
   public Player(String name, boolean color) {

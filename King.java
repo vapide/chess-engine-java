@@ -1,7 +1,10 @@
 public class King extends Piece {
-    private boolean pieceColor;
+    private final boolean pieceColor;
+    @SuppressWarnings({"unused", "FieldMayBeFinal"})
     private int pieceRow;
-     private int pieceCol;
+    @SuppressWarnings({"unused", "FieldMayBeFinal"})
+    private int pieceCol;
+    @SuppressWarnings({"unused", "FieldMayBeFinal"})
      private boolean hasMoved;
      public King(boolean color, int row, int col) {
       super(color, row, col);
@@ -11,18 +14,18 @@ public class King extends Piece {
       hasMoved = false;
        //bitboard = new Bitboard( 1L << (row * 8 + col));
      }
-     
+     /*
      public boolean getColor() {
        return this.pieceColor;
      }
     
-public boolean checkHasMoved() {
-  return hasMoved;
-}
+    public boolean checkHasMoved() {
+      return hasMoved;
+    }
 
-public void setHasMovedTrue() {
-  hasMoved = true;
-}
+    public void setHasMovedTrue() {
+      hasMoved = true;
+    }
 
      public int getRow() {
        return this.pieceRow;
@@ -31,7 +34,8 @@ public void setHasMovedTrue() {
      public int getCol() {
        return this.pieceCol;
      }
-    
+    */
+    @Override
   public char getSymbol() {
       if(this.pieceColor) {
           return 'K';

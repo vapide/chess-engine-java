@@ -1,6 +1,6 @@
 public abstract class Piece {
 
-  private boolean pieceColor;
+  private final boolean pieceColor;
   private int pieceRow;
   private int pieceCol;
 
