@@ -1,6 +1,4 @@
 import java.util.*;
-import java.util.ArrayList;
-import java.util.List;
 
   public class Chessboard {
 
@@ -8,10 +6,9 @@ import java.util.List;
 
     private Piece[][] boardMatrix;
 
-    private Hashtable<Character, Integer> fileCodes;
-    private Hashtable<Integer, Character> letterCodes;
-    
-    private Hashtable<String, Bitboard> bbdict;
+    private Map<Character, Integer> fileCodes;
+    private Map<Integer, Character> letterCodes;
+    private Map<String, Bitboard> bbdict;
     
     private Bitboard whitePawns;
     private Bitboard whiteKnights;
@@ -36,8 +33,10 @@ import java.util.List;
 
     public Chessboard() {
       moves = new ArrayList<>();
-      bbdict = new Hashtable<String, Bitboard>();
-      
+      bbdict = new HashMap<>();
+      bbdict = new HashMap<>();
+      fileCodes = new HashMap<>();
+      letterCodes = new HashMap<>();
       bbdict.put("whitePawns", new Bitboard(65280L));
       whitePawns = new Bitboard(65280L); // 0b0000000000000000000000000000000000000000000000001111111100000000L
       whiteKnights = new Bitboard(66L); // 0b0000000000000000000000000000000000000000000000000000000001000010L
@@ -58,8 +57,8 @@ import java.util.List;
       
       allPieces = new Bitboard(whitePieces.getBitboard() | blackPieces.getBitboard());
       
-      fileCodes = new Hashtable<Character, Integer>();
-      letterCodes = new Hashtable<Integer, Character>();
+      fileCodes = new HashMap<Character, Integer>();
+      letterCodes = new HashMap<Integer, Character>();
 
       String files = "abcdefgh";
       char[] filelist = files.toCharArray();
@@ -136,11 +135,11 @@ import java.util.List;
       return moves;
     }
 
-    public Hashtable<Integer, Character> getLetterCodes() {
+    public Map<Integer, Character> getLetterCodes() {
       return letterCodes;
     }
 
-    public Hashtable<Character, Integer> getFileCodes() {
+    public Map<Character, Integer> getFileCodes() {
       return fileCodes;
     }
     

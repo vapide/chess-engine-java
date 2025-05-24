@@ -28,24 +28,39 @@ public class Knight extends Piece {
 
     public Bitboard getLegalMoves(Chessboard board, int row, int col, boolean color) {
         int bitPos = (7 - row) * 8 + col;
-                long mask = 0b10100001000100000000000100010000101L << bitPos;
-        
-                long potentialMoves = mask & ~(color ? board.getWhitePieces().getBitboard() : board.getBlackPieces().getBitboard());
+        long knight = 1L << bitPos;
 
-        return new Bitboard(potentialMoves);
+        // File masks to prevent wrap-around
+        long notA = 0xfefefefefefefefeL;
+        long notAB = 0xfcfcfcfcfcfcfcfcL;
+        long notH = 0x7f7f7f7f7f7f7f7fL;
+        long notGH = 0x3f3f3f3f3f3f3f3fL;
+
+        long moves = 0L;
+        moves |= (knight << 17) & notA;   // ^ 2, < 1
+        moves |= (knight << 15) & notH;   // ^ 2, > 1
+        moves |= (knight << 10) & notAB;  // ^ 1, < 2
+        moves |= (knight << 6)  & notGH;  // ^ 1, > 2
+        moves |= (knight >>> 17) & notH;  // v 2, > 1
+        moves |= (knight >>> 15) & notA;  // v 2, < 1
+        moves |= (knight >>> 10) & notGH; // v 1, > 2
+        moves |= (knight >>> 6)  & notAB; // v 1, < 2
+
+        long friendly = color ? board.getWhitePieces().getBitboard() : board.getBlackPieces().getBitboard();
+        moves &= ~friendly;
+
+        return new Bitboard(moves);
     }
 
     @Override
     public boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
-        
-        int startBitPos = (7 - startrow) * 8 + startcol;
+        Bitboard legalMoves = getLegalMoves(board, startrow, startcol, color);
         int endBitPos = (7 - endrow) * 8 + endcol;
-
-        long startSquare = 1L << startBitPos;
         long endSquare = 1L << endBitPos;
-
         Bitboard pieces = color ? board.getWhitePieces() : board.getBlackPieces();
-        return (pieces.getBitboard() & startSquare) != 0 
-            && (getLegalMoves(board, startrow, startcol, color).getBitboard() & endSquare) != 0;
+        int startBitPos = (7 - startrow) * 8 + startcol;
+        long startSquare = 1L << startBitPos;
+        return (pieces.getBitboard() & startSquare) != 0
+            && (legalMoves.getBitboard() & endSquare) != 0;
     }
 }
