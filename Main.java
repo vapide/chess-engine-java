@@ -9,7 +9,13 @@ public class Main {
         Player player2 = new Player("Black", false);
         Game newGame = new Game(board, player1, player2);
         newGame.displayBoard();
-        newGame.uciToMove("e2e4");
+        newGame.uciToMove("g1f4");
+        newGame.displayBoard();
+        newGame.getMoves();
+        newGame.uciToMove("g1f3");
+        newGame.displayBoard();
+        newGame.getMoves();
+        newGame.uciToMove("g8f6");
         newGame.displayBoard();
         newGame.getMoves();
         //System.out.println(board.getPieces());

@@ -44,9 +44,12 @@ public class Game {
 
     public void uciToMove(String uciString) {
      int[] moveVals = uciToInt(uciString);
-     // System.out.println(moveVals[1]);
-     // System.out.println(moveVals[0]);
+     System.out.println(moveVals[1]);
+     System.out.println(moveVals[0]);
+     System.out.println(moveVals[3]);
+     System.out.println(moveVals[2]);
      Piece myPiece = boardClass.getPieceFromSquare(moveVals[1],moveVals[0]);
+     boolean valid = myPiece.isValidMove(boardClass, myPiece.getColor(), moveVals[1], moveVals[0], moveVals[3], moveVals[2]);
      /*
         if(myPiece.isValidMove) {
             ...
@@ -60,8 +63,12 @@ public class Game {
      // System.out.println(myPiece.getRow());
      // System.out.println(MyPiece);
      // if(myPiece.isValidMove(boardClass, myPiece.getColor(), moveVals[1],moveVals[0],moveVals[3],moveVals[2])) {
+        if(valid) {
       boardClass.addMove(uciString);
       boardClass.movePiece(myPiece.getColor(), moveVals[1], moveVals[0], moveVals[3], moveVals[2]);   
+        } else {
+            System.out.println("Invalid move: " + uciString);
+        }
      // }
     }
 
