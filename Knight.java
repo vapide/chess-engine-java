@@ -25,7 +25,7 @@ public class Knight extends Piece {
     public int fillCol(int n) {
         return (255 >> (8 - n)) & 255; // fills 0b00000000 with 1s starting from left to right
     }
-
+    @Override
     public Bitboard getLegalMoves(Chessboard board, int row, int col, boolean color) {
         int bitPos = (7 - row) * 8 + col;
         long knight = 1L << bitPos;
@@ -36,15 +36,7 @@ public class Knight extends Piece {
         long notH = 0x7f7f7f7f7f7f7f7fL;
         long notGH = 0x3f3f3f3f3f3f3f3fL;
 
-        long moves = 0L;
-        moves |= (knight << 17) & notA;   // ^ 2, < 1
-        moves |= (knight << 15) & notH;   // ^ 2, > 1
-        moves |= (knight << 10) & notAB;  // ^ 1, < 2
-        moves |= (knight << 6)  & notGH;  // ^ 1, > 2
-        moves |= (knight >>> 17) & notH;  // v 2, > 1
-        moves |= (knight >>> 15) & notA;  // v 2, < 1
-        moves |= (knight >>> 10) & notGH; // v 1, > 2
-        moves |= (knight >>> 6)  & notAB; // v 1, < 2
+        long moves = ((knight << 17) & notA) | ((knight << 15) & notH) | ((knight << 10) & notAB) | ((knight << 6) & notGH) | ((knight >>> 17) & notH) | ((knight >>> 15) & notA) | ((knight >>> 10) & notGH) | ((knight >>> 6) & notAB);
 
         long friendly = color ? board.getWhitePieces().getBitboard() : board.getBlackPieces().getBitboard();
         moves &= ~friendly;

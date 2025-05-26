@@ -1,36 +1,10 @@
 public class Rook extends Piece {
-  private boolean pieceColor;
-  private int pieceRow;
-  private int pieceCol;
   private boolean hasMoved;
 
   public Rook(boolean color, int row, int col) {
    super(color, row, col);
-   pieceColor = color;
-   pieceRow = row;
-   pieceCol = col;
    hasMoved = false;
     //bitboard = new Bitboard( 1L << (row * 8 + col));
-  }
-  
-  public boolean getColor() {
-    return this.pieceColor;
-  }
-
-  public int getRow() {
-    return this.pieceRow;
-  }
-
-  public int getCol() {
-    return this.pieceCol;
-  }
-
-  public void changeRow(int row) {
-    pieceRow = row;
-  }
-
-  public void changeCol(int col) {
-    pieceCol = col;
   }
 
   public boolean checkHasMoved() {
@@ -40,13 +14,9 @@ public class Rook extends Piece {
   public void setHasMovedTrue() {
     hasMoved = true;
   }
-
+  @Override
   public char getSymbol() {
-      if(this.pieceColor) {
-          return 'R';
-      } else {
-          return 'r';
-      }
+    return getColor() ? 'R' : 'r';
   }
 
   @Override
@@ -55,8 +25,14 @@ public class Rook extends Piece {
    }
 
   public Bitboard getMoves() { // psuedo legal moves
-   return new Bitboard((Bitboard.FILE_A >>> pieceCol) ^ (Bitboard.RANK_8 >>> pieceRow)); 
+    return new Bitboard(0L);
+   //return new Bitboard((Bitboard.FILE_A >>> getColor()) ^ (Bitboard.RANK_8 >>> getColor())); 
   }
+
+    @Override
+    public Bitboard getLegalMoves(Chessboard board, int row, int col, boolean color) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
 /*
 

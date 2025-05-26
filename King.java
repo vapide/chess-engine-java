@@ -24,4 +24,10 @@ public class King extends Piece {
      public boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
          return true;
       }
+
+    @Override
+    public Bitboard getLegalMoves(Chessboard board, int row, int col, boolean color) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
     }

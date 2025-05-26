@@ -10,6 +10,7 @@ public class Main {
         Game newGame = new Game(board, player1, player2);
         newGame.displayBoard();
         newGame.uciToMove("g1f4");
+        Bitboard.printBitboard((newGame.getBoard().getPieceFromSquare(0, 6).getLegalMoves(newGame.getBoard(), 0, 6, true)));
         newGame.displayBoard();
         newGame.getMoves();
         newGame.uciToMove("g1f3");

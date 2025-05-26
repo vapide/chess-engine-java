@@ -15,6 +15,10 @@ public class Game {
         System.out.println();
     }
 
+    public Chessboard getBoard() {
+        return boardClass;
+    }
+    
     public void displayBoard() {
         boardClass.printBoard();
         System.out.println();

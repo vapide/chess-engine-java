@@ -30,6 +30,8 @@ public abstract class Piece {
     pieceCol = col;
   }
 
+  public abstract Bitboard getLegalMoves(Chessboard board, int row, int col, boolean color);
+
   public abstract char getSymbol();
 
   public abstract boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol);
