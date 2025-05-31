@@ -45,6 +45,15 @@ rotateBitmap(long bb)
 : returns a bitboard representing the board after rotating it clockwise 45 degrees
  */
 public class Bitboard {
+  // Set a bit at the given position
+  public void setBit(int pos) {
+    bitboard |= (1L << pos);
+  }
+
+  // Clear a bit at the given position
+  public void clearBit(int pos) {
+    bitboard &= ~(1L << pos);
+  }
 
   // Predefined bitboards for files and ranks
   public static final long DIAG_AH = -9205322385119247871L; // 0b1000000001000000001000000001000000001000000001000000001000000001 

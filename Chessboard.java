@@ -146,13 +146,59 @@ import java.util.*;
     public void addMove(String uciString) {
         moves.add(uciString);
     }
-
+    // USED CHATGPT TO HELP FORMAT THE IF ELSE ? : STATEMENTS FOR MOVEPIECE METHOD.
     public void movePiece(boolean color, int startrow, int startcol, int endrow, int endcol) {
-      // System.out.println(boardMatrix[endrow][endcol]);
-      boardMatrix[endrow][endcol] = boardMatrix[startrow][startcol];
-      boardMatrix[endrow][endcol].changeRow(endrow);
-      boardMatrix[endrow][endcol].changeCol(endcol);
-      boardMatrix[startrow][startcol] = null;
+      if (boardMatrix[startrow][startcol] == null) {
+        throw new IllegalArgumentException("No piece at the starting position.");        
+      } else {
+        if (!boardMatrix[startrow][startcol].getColor() == color) {
+          throw new IllegalArgumentException("Cannot move opponent's piece.");
+        } else if (!boardMatrix[startrow][startcol].isValidMove(this, color, startrow, startcol, endrow, endcol)) {
+          throw new IllegalArgumentException("Invalid move for the piece.");
+        } else {
+          Piece movingPiece = boardMatrix[startrow][startcol];
+          Piece capturedPiece = boardMatrix[endrow][endcol];
+
+          if (capturedPiece != null) {
+            int capturedBitPos = endrow * 8 + endcol;
+            Bitboard bb =
+                capturedPiece instanceof Pawn   ? (capturedPiece.getColor() ? whitePawns   : blackPawns)
+              : capturedPiece instanceof Knight ? (capturedPiece.getColor() ? whiteKnights : blackKnights)
+              : capturedPiece instanceof Bishop ? (capturedPiece.getColor() ? whiteBishops : blackBishops)
+              : capturedPiece instanceof Rook   ? (capturedPiece.getColor() ? whiteRooks   : blackRooks)
+              : capturedPiece instanceof Queen  ? (capturedPiece.getColor() ? whiteQueens  : blackQueens)
+              : capturedPiece instanceof King   ? (capturedPiece.getColor() ? whiteKing    : blackKing)
+              : null;
+
+            if (bb != null) {
+              bb.clearBit(capturedBitPos);
+            }
+          }
+          int fromBitPos = startrow * 8 + startcol;
+          int toBitPos = endrow * 8 + endcol;
+          Bitboard moveBB =
+                movingPiece instanceof Pawn   ? (movingPiece.getColor() ? whitePawns   : blackPawns)
+              : movingPiece instanceof Knight ? (movingPiece.getColor() ? whiteKnights : blackKnights)
+              : movingPiece instanceof Bishop ? (movingPiece.getColor() ? whiteBishops : blackBishops)
+              : movingPiece instanceof Rook   ? (movingPiece.getColor() ? whiteRooks   : blackRooks)
+              : movingPiece instanceof Queen  ? (movingPiece.getColor() ? whiteQueens  : blackQueens)
+              : movingPiece instanceof King   ? (movingPiece.getColor() ? whiteKing    : blackKing)
+              : null;
+          if (moveBB != null) {
+            moveBB.clearBit(fromBitPos);
+            moveBB.setBit(toBitPos);
+          }
+
+          whitePieces.bitboard = whitePawns.getBitboard() | whiteKnights.getBitboard() | whiteBishops.getBitboard() | whiteRooks.getBitboard() | whiteQueens.getBitboard() | whiteKing.getBitboard();
+          blackPieces.bitboard = blackPawns.getBitboard() | blackKnights.getBitboard() | blackBishops.getBitboard() | blackRooks.getBitboard() | blackQueens.getBitboard() | blackKing.getBitboard();
+          allPieces.bitboard = whitePieces.getBitboard() | blackPieces.getBitboard();
+
+          boardMatrix[endrow][endcol] = movingPiece;
+          boardMatrix[endrow][endcol].changeRow(endrow);
+          boardMatrix[endrow][endcol].changeCol(endcol);
+          boardMatrix[startrow][startcol] = null;
+        }
+      }
     }
 
     public static long[][] convertToBitboards(Piece[][] matrix) {

@@ -1,5 +1,4 @@
 public class Bishop extends Piece {
-  private boolean pieceColor;
   private int pieceRow;
    private int pieceCol;
    public Bishop(boolean color, int row, int col) {
