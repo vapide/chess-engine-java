@@ -27,8 +27,19 @@ public class Knight extends Piece {
     }
     @Override
     public Bitboard getLegalMoves(Chessboard board, int row, int col, boolean color) {
-        // int bitPos = row * 8 + col;
-        long moves = ((row <= 5 && col <= 6 ? 1L << ((row + 2) * 8 + (col + 1)) : 0L) | (row <= 6 && col <= 5 ? 1L << ((row + 1) * 8 + (col + 2)) : 0L) | (row >= 1 && col <= 5 ? 1L << ((row - 1) * 8 + (col + 2)) : 0L) | (row >= 2 && col <= 6 ? 1L << ((row - 2) * 8 + (col + 1)) : 0L) | (row >= 2 && col >= 1 ? 1L << ((row - 2) * 8 + (col - 1)) : 0L) | (row >= 1 && col >= 2 ? 1L << ((row - 1) * 8 + (col - 2)) : 0L) | (row <= 6 && col >= 2 ? 1L << ((row + 1) * 8 + (col - 2)) : 0L) | (row <= 5 && col >= 1 ? 1L << ((row + 2) * 8 + (col - 1)) : 0L));
+        int bitPos = (7 - row) * 8 + col;
+        long knight = 1L << bitPos;
+
+        // File masks to prevent wrap-around
+        long notA = 0xfefefefefefefefeL;
+        long notAB = 0xfcfcfcfcfcfcfcfcL;
+        long notH = 0x7f7f7f7f7f7f7f7fL;
+        long notGH = 0x3f3f3f3f3f3f3f3fL;
+
+        long moves = ((knight << 17) & notA) | ((knight << 15) & notH) | ((knight << 10) & notAB) | ((knight << 6) & notGH) | ((knight >>> 17) & notH) | ((knight >>> 15) & notA) | ((knight >>> 10) & notGH) | ((knight >>> 6) & notAB);
+        System.out.println();
+        Bitboard.printBitboard(board.getWhitePieces());
+        System.out.println();
         long friendly = color ? board.getWhitePieces().getBitboard() : board.getBlackPieces().getBitboard();
         moves &= ~friendly;
         return new Bitboard(moves);
@@ -37,10 +48,10 @@ public class Knight extends Piece {
     @Override
     public boolean isValidMove(Chessboard board, boolean color, int startrow, int startcol, int endrow, int endcol) {
         Bitboard legalMoves = getLegalMoves(board, startrow, startcol, color);
-        int endBitPos = endrow * 8 + endcol;
+        int endBitPos = (7 - endrow) * 8 + endcol;
         long endSquare = 1L << endBitPos;
         Bitboard pieces = color ? board.getWhitePieces() : board.getBlackPieces();
-        int startBitPos = startrow * 8 + startcol;
+        int startBitPos = (7 - startrow) * 8 + startcol;
         long startSquare = 1L << startBitPos;
         return (pieces.getBitboard() & startSquare) != 0
             && (legalMoves.getBitboard() & endSquare) != 0;
