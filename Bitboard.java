@@ -127,9 +127,11 @@ public class Bitboard {
   }
 
 public static void printBitboard(Bitboard bitboard) {
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            long bit = bitboard.getBitboard() & (1L << (i * 8 + j));
+    // Print from rank 8 to rank 1 (top to bottom), matching chess notation
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col++) {
+            // Match the same bit calculation as used in Knight.java
+            long bit = bitboard.getBitboard() & (1L << ((7 - row) * 8 + col));
             System.out.print((bit != 0) ? "1 " : "0 ");
         }
         System.out.println();

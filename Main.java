@@ -18,10 +18,13 @@ public class Main {
         newGame.getMoves();
         newGame.uciToMove("g8f6");
         newGame.displayBoard();
-        newGame.getMoves();        // Print legal moves for the knight on f3 (after g1f3)
-        // For f3: rank 3 is 2 and file f is 5
+        newGame.getMoves();
+        Bitboard.printBitboard((newGame.getBoard().getPieceFromSquare2(2, 5).getLegalMoves(newGame.getBoard(), 5, 5, true)));
         Bitboard.printBitboard((newGame.getBoard().getPieceFromSquare2(2, 5).getLegalMoves(newGame.getBoard(), 5, 5, true)));
         newGame.uciToMove("f3g5");
+        newGame.displayBoard();
+        newGame.getMoves();
+        newGame.uciToMove("f6g4");
         newGame.displayBoard();
         newGame.getMoves();
         //System.out.println(board.getPieces());

@@ -36,18 +36,11 @@ public class Game {
             moveVals[1] = (int)uciString.charAt(1) + 48;
             moveVals[2] = boardClass.getFileCodes().get(uciString.charAt(2));
             moveVals[3] = (int)uciString.charAt(3) + 48;
-        } else if(uciString.length() == 4) {
-            /* Old code with flipped coordinates
-            moveVals[0] = boardClass.getFileCodes().get(uciString.charAt(0));
-            moveVals[1] = 7 - ((int)(uciString.charAt(1) - '0')-1);
-            moveVals[2] = boardClass.getFileCodes().get(uciString.charAt(2));
+        } else if(uciString.length() == 4) { 
+            moveVals[0] = boardClass.getFileCodes().get(uciString.charAt(0));  // file f -> 5
+            moveVals[1] = 7 - ((int)(uciString.charAt(1) - '0')-1); 
+            moveVals[2] = boardClass.getFileCodes().get(uciString.charAt(2));  // file g -> 6
             moveVals[3] = 7 - ((int)(uciString.charAt(3) - '0')-1);
-            */
-              // New code - convert UCI coordinates (1-based) to array indices (0-based)
-            moveVals[0] = boardClass.getFileCodes().get(uciString.charAt(0));  // Files already 0-based from map
-            moveVals[1] = 7 - ((int)(uciString.charAt(1) - '0')-1);  // Convert rank to row index and flip
-            moveVals[2] = boardClass.getFileCodes().get(uciString.charAt(2));  // Files already 0-based from map
-            moveVals[3] = 7 - ((int)(uciString.charAt(3) - '0')-1);  // Convert rank to row index and flip
         }
         // System.out.println(moveVals[1]);
         return moveVals;
