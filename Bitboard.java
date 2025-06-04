@@ -136,14 +136,6 @@ public static void printBitboard(Bitboard bitboard) {
     }
 }
 
-  /**
-   * Rotate the given bitboard 45 degrees clockwise using a rotation matrix.
-   * This method rotates the bitboard as if it was a chessboard, where A1 is the
-   * bottom-left corner and H8 is the top-right corner.
-   *
-   * @param bb the bitboard to rotate
-   * @return the rotated bitboard
-   */
   public static long rotateBitmap(long bb) {
     // Create a 2D matrix representation of the bitboard
     int[][] matrix = new int[8][8];

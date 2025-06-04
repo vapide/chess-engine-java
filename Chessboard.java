@@ -70,11 +70,12 @@ import java.util.*;
       }
 
       boardMatrix = new Piece[8][8];
-
+      // false for black, true for white
       for(int i=0;i<8;i++) {
-        boardMatrix[1][i] = new Pawn(false, 1, i);
-        boardMatrix[6][i] = new Pawn(true, 6, i);
+        boardMatrix[1][i] = new Pawn(false, 1, i);   // Black pawns on rank 7
+        boardMatrix[6][i] = new Pawn(true, 6, i);    // White pawns on rank 2
       }
+      // Black pieces (top)
       boardMatrix[0][0] = new Rook(false,0,0);
       boardMatrix[0][1] = new Knight(false,0,1);
       boardMatrix[0][2] = new Bishop(false,0,2);
@@ -83,6 +84,7 @@ import java.util.*;
       boardMatrix[0][5] = new Bishop(false,0,5);
       boardMatrix[0][6] = new Knight(false,0,6);
       boardMatrix[0][7] = new Rook(false,0,7);
+      // White pieces (bottom)
       boardMatrix[7][0] = new Rook(true,7,0);
       boardMatrix[7][1] = new Knight(true,7,1);
       boardMatrix[7][2] = new Bishop(true,7,2);
@@ -119,6 +121,11 @@ import java.util.*;
      return boardMatrix[row][col]; 
     }
     
+    // Humanized version where 0 is the bottom and 7 is the top!
+    public Piece getPieceFromSquare2(int row, int col) {
+      return boardMatrix[7 - row][col];
+    }
+
     public Bitboard getWhitePieces() {
       return whitePieces;
     }
